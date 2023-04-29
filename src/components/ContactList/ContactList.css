@@ -1,0 +1,21 @@
+.contactList__unordered-list{
+    margin-right: 57px;
+}
+
+.contactList__unordered-list--item{
+    margin-bottom: 10px;
+}
+
+.contactList__unordered-list--button{
+    margin-left: 15px;
+    background-color: transparent;
+    border: 1px;
+    border-style: solid;
+    border-color: gray;
+    border-radius: 50px;
+}
+
+.contactList__unordered-list--button:hover{
+    background-color: aquamarine;
+    cursor: pointer;
+}
