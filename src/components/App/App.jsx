@@ -5,7 +5,7 @@ import ContactList from "../ContactList/ContactList";
 import PropTypes from "prop-types";
 import '../../index.css';
 import { useDispatch } from "react-redux";
-import { loadContacts } from "redux/actions";
+import { loadContacts } from "redux/contactsSlice";
 
 const App = () => {
   const dispatch = useDispatch()
