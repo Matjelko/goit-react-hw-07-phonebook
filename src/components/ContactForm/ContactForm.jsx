@@ -4,7 +4,8 @@ import './ContactForm.css'
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from "react-redux";
 import { getContacts } from "redux/selectors";
-import { addContact } from "redux/contactsSlice";
+import { addContact } from "redux/operations";
+// import { addContact } from "redux/contactsSlice";
 
 const ContactForm = () => {
     const [ name, setName ] = useState('')
@@ -15,7 +16,8 @@ const ContactForm = () => {
     const handleSubmit = (evt) => {
         const id = nanoid();
         evt.preventDefault();
-        dispatch(addContact({ id, name, number }))
+        // dispatch(addContact({ id, name, number }))
+        dispatch(addContact(id, name, number))
         setName('');
         setNumber('');
 
