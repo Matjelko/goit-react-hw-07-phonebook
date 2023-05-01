@@ -16,10 +16,12 @@ const ContactForm = () => {
     const handleSubmit = (evt) => {
         const id = nanoid();
         evt.preventDefault();
+        const form = evt.target;
+        dispatch(addContact(evt.target.elements.name.value));
+        form.reset();
         // dispatch(addContact({ id, name, number }))
-        dispatch(addContact(id, name, number))
-        setName('');
-        setNumber('');
+        // setName('');
+        // setNumber('');
 
         localStorage.setItem(
             'contacts',
