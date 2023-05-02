@@ -1,30 +1,32 @@
 import { useState } from "react";
-import { nanoid } from 'nanoid';
+// import { nanoid } from 'nanoid';
 import './ContactForm.css'
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from "react-redux";
-import { getContacts } from "redux/selectors";
+import { useDispatch } from "react-redux";
+// import { getContacts } from "redux/selectors";
 import { addContact } from "redux/operations";
 // import { addContact } from "redux/contactsSlice";
 
 const ContactForm = () => {
     const [ name, setName ] = useState('')
     const [ number, setNumber ] = useState('')
-    const contacts = useSelector(getContacts);
+    // const contacts = useSelector(getContacts);
     const dispatch = useDispatch();
 
     const handleSubmit = (evt) => {
-        const id = nanoid();
+        // const id = nanoid();
         evt.preventDefault();
+        const form = evt.target;
+        dispatch(addContact(evt.target.elements.name.value));
+        form.reset();
         // dispatch(addContact({ id, name, number }))
-        dispatch(addContact(id, name, number))
-        setName('');
-        setNumber('');
+        // setName('');
+        // setNumber('');
 
-        localStorage.setItem(
-            'contacts',
-            JSON.stringify([...contacts, { id, name, number}])
-        )
+        // localStorage.setItem(
+        //     'contacts',
+        //     JSON.stringify([...contacts, { id, name, number}])
+        // )
     }
 
     return(
