@@ -1,6 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { addContact, deleteContact, fetchContacts } from "./operations";
 
+const handlePending = (state) => {
+    state.isLoading = true;
+}
+
+const handleRejected = (state, action) => {
+    state.isLoading = false;
+    state.error = action.payload;
+}
+
 const contactsSlice = createSlice({
     name: "contacts",
     initialState: {
@@ -9,35 +18,23 @@ const contactsSlice = createSlice({
         error: null,
     },
     extraReducers: {
-        [fetchContacts.pending](state, action) {
-            state.isLoading = true;
-        },
+        [fetchContacts.pending]: handlePending,
         [fetchContacts.fulfilled](state, action) {
             state.isLoading = false;
             state.error = null;
             state.items = action.payload;
         },
-        [fetchContacts.rejected](state, action) {
-            state.isLoading = false;
-            state.error = action.payload;
-        },
+        [fetchContacts.rejected]: handleRejected,
 
-        [addContact.pending](state) {
-            state.isLoading = true;
-        },
+        [addContact.pending]: handlePending,
         [addContact.fulfilled](state, action) {
             state.isLoading = false;
             state.error = null;
             state.items.push(action.payload);
         },
-        [addContact.rejected](state, action) {
-            state.isLoading = false;
-            state.error = action.payload;
-        },
+        [addContact.rejected]: handleRejected,
 
-        [deleteContact.pending](state) {
-            state.isLoading = true;
-        },
+        [deleteContact.pending]: handlePending,
         [deleteContact.fulfilled](state, action) {
             state.isLoading = false;
             state.error = null;
@@ -46,47 +43,8 @@ const contactsSlice = createSlice({
             );
             state.items.splice(index, 1);
         },
-        [deleteContact.rejected](state, action) {
-            state.isLoading = false;
-            state.error = action.payload;
-        },
+        [deleteContact.rejected]: handleRejected,
     },
-    // reducers: {
-    //     addContact: {
-    //         reducer(state, action) {
-    //             return {
-    //                 ...state,
-    //                 items: [...state.items, ...action.payload],
-    //             };
-    //         },
-    //         prepare({ id, name, number }) {
-    //             return {
-    //                 payload: [{
-    //                     id,
-    //                     name,
-    //                     number
-    //                 }]
-    //             }
-    //         }
-    //     },
-    //     deleteContact(state, action) {
-    //         const updatedContacts = state.items.filter(
-    //             contact => contact.id !== action.payload
-    //         );
-    //         localStorage.setItem('contacts', JSON.stringify(updatedContacts));
-    //         return {
-    //             ...state,
-    //             items: updatedContacts,
-    //         };
-    //     },
-    //     loadContacts(state, action) {
-    //         return {
-    //             ...state,
-    //             items: action.payload,
-    //         };
-    //     },
-    // }
 });
 
-// export const { addContact, deleteContact, loadContacts } = contactsSlice.actions
 export const contactsReducer = contactsSlice.reducer
