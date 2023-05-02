@@ -17,7 +17,10 @@ const ContactForm = () => {
         // const id = nanoid();
         evt.preventDefault();
         const form = evt.target;
-        dispatch(addContact(evt.target.elements.name.value));
+        dispatch(addContact({ 
+            name: evt.target.elements.name.value, 
+            number: evt.target.elements.number.value
+        }));
         form.reset();
         // dispatch(addContact({ id, name, number }))
         // setName('');
