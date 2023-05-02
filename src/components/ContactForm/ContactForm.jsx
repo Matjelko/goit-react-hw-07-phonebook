@@ -1,22 +1,39 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addContact } from "redux/operations";
 
 import PropTypes from 'prop-types';
 import './ContactForm.css'
+import { getContacts } from "redux/selectors";
 
 const ContactForm = () => {
     const [ name, setName ] = useState('')
     const [ number, setNumber ] = useState('')
     const dispatch = useDispatch();
 
+    const contacts = useSelector(getContacts)
+
     const handleSubmit = (evt) => {
         evt.preventDefault();
         const form = evt.target;
-        dispatch(addContact({ 
-            name: evt.target.elements.name.value, 
-            number: evt.target.elements.number.value
-        }));
+
+        let switching = false;
+
+        contacts.forEach(el => {
+            if(el.name.toLowerCase() === name.toLowerCase()){
+                switching = true;
+            }
+        });
+
+        if(switching){
+            alert(`${name} is already in contacts.`)
+        }
+        else{
+            dispatch(addContact({ 
+                name: evt.target.elements.name.value, 
+                number: evt.target.elements.number.value
+            }));
+        }
         form.reset();
     }
 
